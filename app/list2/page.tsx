@@ -1,12 +1,14 @@
 import { connectDB } from '@/util/database';
 import ListItem from './ListItem';
+import { ObjectId } from 'mongodb';
 
 interface Board {
-    _id: string
+    _id: ObjectId
     title: string
     content: string
 }
-export const dynamic = 'force-dynamic' // dynamic rendering 컴포넌트로 동작하게 만들어줌
+// 캐싱을 위한 변수 20초마다 캐싱 데이터 새로불러옴 ( 20초 저장함 초단위 )
+export const revalidate = 20;
 
 export default async function List() {
    
@@ -19,7 +21,7 @@ export default async function List() {
     // 이 타입을 우리가 원하는 Board 타입으로 변환해줘야함
     // 그래서 map을 이용하여 formattedResult에 다시 담아주는과정
     const formattedResult: Board[] = result.map(item => ({
-        _id: item._id.toString(), // _id가 ObjectId인 경우에는 변환 없이 그대로 사용 가능
+        _id: item._id, // _id가 ObjectId인 경우에는 변환 없이 그대로 사용 가능
         title: item.title,
         content: item.content
     }));

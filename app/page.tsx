@@ -5,10 +5,11 @@ import Header from "./component/Header"
 export default async function Home() {
   
   // await을 쓰려면 async function에서만 사용가능
-  const client = await connectDB;
-  const db = client.db("forum");
-  const data = await db.collection('post').find().toArray();
+  // const client = await connectDB;
+  // const db = client.db("forum");
+  // const data = await db.collection('post').find().toArray();
 
+  //await fetch('/URL', { cache : 'force-cache'})
   
   return (
     <>

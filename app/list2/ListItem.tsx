@@ -17,7 +17,7 @@ import { ObjectId } from 'mongodb';
 
 // 이렇게 해도된다 Board 정의 ListItemProps에서 data : Array<Board>
 interface Board {
-    _id: string
+    _id: ObjectId
     title: string
     content: string
 }
@@ -37,19 +37,18 @@ export default function ListItem(props: ListItemProps) {
                 // if(res.ok){
                 return res.json();
                 // }
-            }) 
+            })
             .then(data => {
                 alert(data.message);
                 if (data.result) {
-                    //console.log(e.target); // <span></span>/*  */
-                    const eventTarget = e.target as HTMLElement; 
-                    //const eventTarget = e.currentTarget.parentElement;
+                    //console.log(e.target); // <span></span>
+                    const eventTarget = e.target as HTMLElement;
                     
                     const parentElement = eventTarget.parentElement as HTMLElement;
                      
                     parentElement.style.opacity = '0';
                     setTimeout(()=>{
-                        //parentElement.style.display = 'none'; 
+                        //parentElement.style.display = 'none';
                         //parentElement.remove();
                         location.reload();
                     },1000);
@@ -64,8 +63,8 @@ export default function ListItem(props: ListItemProps) {
 
         // const name = "choijinyoung";
         // ?name=${name}
-        // fetch(`/api/server?name=${name}`) // URL에 데이터 담아서 보내기
-        // fetch(`/api/abc/${name}`);  // dynamic router 사용하듯 서버에 데이터 보내기
+        // fetch(`/api/server?name=${name}`)
+        // fetch(`/api/abc/${name}`);
 
     }
     return (

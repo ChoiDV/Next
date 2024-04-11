@@ -10,6 +10,7 @@ a {
 .navbar {
   background: white;
   padding: 20px;
+  display : inline-block;
 }
 
 .navbar a {
@@ -28,7 +29,7 @@ input {
   margin-bottom: 10px;
 }
 
-button {
+button, .button {
   padding: 10px 15px;
   background: lightgray;
   border: none;
@@ -45,3 +46,4 @@ button {
   width : 100px;
   font-size : 1.5em;
 }
+
