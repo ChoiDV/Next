@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 
     if (selectData && selectData.author == session?.user?.email) {
-        let result = await db.collection('post').deleteOne({ _id: new ObjectId(data._id)});
+        let result = await db.collection('post').deleteOne({ _id: new ObjectId(data._id) });
 
         if (result.deletedCount > 0) {
             return res.status(200).json({ message: '삭제 완료', result: true });

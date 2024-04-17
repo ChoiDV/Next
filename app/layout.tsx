@@ -23,7 +23,6 @@ export default async function RootLayout({
 }>) {
   
   let session = await getServerSession(authOptions);
-
   
   return (
     <html lang="en">

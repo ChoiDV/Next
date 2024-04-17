@@ -15,11 +15,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             return res.status(500).json({ message : '비밀번호 입력바람'});
         }
 
-        let hash = await bcrypt.hash(data.password,10);
-        data.password = hash;
+        
         let db = (await connectDB).db('forum');
 
-        // 유효성 검증 로직 추가
+        let exist = await db.collection('user_cred').findOne({ email : data.email });
+        console.log(exist);
+        if(exist){
+            return res.status(500).json({ message : '이미 존재하는 이메일'});
+        }
+        //유효성 검증 로직 추가
+        let hash = await bcrypt.hash(data.password,10);
+        data.password = hash;
 
         let result = await db.collection('user_cred').insertOne(data);
 
