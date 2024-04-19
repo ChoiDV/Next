@@ -5,6 +5,7 @@ import Link from "next/link";
 import Comment from "./Comment";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { notFound } from "next/navigation";
 
 interface Post {
     params: {
@@ -25,6 +26,9 @@ export default async function Detail(props: Post) {
     const db = (await connectDB).db("forum");
     let result = await db.collection('post').findOne({ _id: new ObjectId(props.params.post_id) });
 
+    if(result === null){
+        return notFound()
+    }
     let session = await getServerSession(authOptions);
     
     const comment = {
