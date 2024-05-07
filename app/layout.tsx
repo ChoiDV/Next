@@ -7,6 +7,9 @@ import LoginBtn from "./component/LoginBtn";
 import LogOutBtn from "./component/LogOutBtn";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import DarkMode from "./component/darkmode";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,15 +26,19 @@ export default async function RootLayout({
 }>) {
   
   let session = await getServerSession(authOptions);
-  
+
+  let cookie = cookies().get("uimode");
+  //console.log(cookie);
+
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={cookie?.value == 'dark' ? 'dark-mode' : 'light-mode'} >
         <Header />
         {
           session && session.user ? <span>{session.user.name} <LogOutBtn/> </span>
           :  <span> <LoginBtn /> <Link className="button" href={`/register`}>회원가입</Link> </span>
         }
+        <DarkMode />
         {children}
       </body>
     </html>

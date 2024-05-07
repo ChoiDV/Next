@@ -37,24 +37,27 @@ export default function ListItem(props: ListItemProps) {
                 // if(res.ok){
                 return res.json();
                 // }
-            }) 
+            })
             .then(data => {
                 alert(data.message);
                 if (data.result) {
                     //console.log(e.target); // <span></span>/*  */
-                    const eventTarget = e.target as HTMLElement; 
+                    const eventTarget = e.target as HTMLElement;
                     //const eventTarget = e.currentTarget.parentElement;
-                    
+
                     const parentElement = eventTarget.parentElement as HTMLElement;
-                     
+
                     parentElement.style.opacity = '0';
-                    setTimeout(()=>{
+
+                    // 구천  지하수위계 들어옴 , 외부변위계 안들어옴
+                    // 연초  지하수위계 , 외부변위계 
+                    setTimeout(() => {
+                        //console.log(parentElement);
                         //parentElement.style.display = 'none'; 
                         //parentElement.remove();
                         location.reload();
-                    },1000);
+                    }, 1000);
 
-                    // location.reload();  // 새로고침
                 }
 
             })
@@ -70,22 +73,22 @@ export default function ListItem(props: ListItemProps) {
     }
     return (
         <>
-            {
-                props.data.map((board, idx) => (
-
-                    <div className={styles['list-item']} key={idx} >
-                        <Link prefetch={false} href={`/detail/${board._id}`}>
-                            <h4>{board.title}</h4>
-                            <p>{board.content}</p>
-                        </Link>
-                        <Link href={`/edit/${board._id}`} >✏️</Link>
-                        <span onClick={e => {
-                            deletePost(board._id.toString(), e)
-                        }}>🗑️</span>
-                    </div>
-
-                ))
-            }
+            <div>
+                {
+                    props.data.map((board, idx) => (
+                        <div className={styles[`list-item`]} key={idx} >
+                            <Link prefetch={false} href={`/detail/${board._id}`}>
+                                <h4>{board.title}</h4>
+                                <p>{board.content}</p>
+                            </Link>
+                            <Link href={`/edit/${board._id}`} >✏️</Link>
+                            <span onClick={e => {
+                                deletePost(board._id.toString(), e)
+                            }}>🗑️</span>
+                        </div>
+                    ))
+                }
+            </div>
         </>
     )
 }
